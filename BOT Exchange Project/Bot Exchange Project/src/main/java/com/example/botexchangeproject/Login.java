@@ -2,56 +2,57 @@ package com.example.botexchangeproject;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Base64;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-public class Login {
 
-    private static final String apiURL = "https://identitysso.nxt.com.betfair/api/login";
+
+public class Login {
     private static final String username = "apitestuk2";
     private static final String password = "p@ssword03";
 
 
-    public String returnToken() throws IOException, InterruptedException {
+    public static String returnToken() throws IOException, InterruptedException, URISyntaxException {
 
-        String credentials = username + ":" + password;
-        String encodedCredentials = Base64.getEncoder().encodeToString(credentials.getBytes());
-        String body = "grant_type=password&username=" + username + "&password=" + password;
 
-        HttpRequest.BodyPublisher bodyPublisher = HttpRequest.BodyPublishers.ofString(body);
+        String query = "username=" + username + "&password=" + password;
+        String urlString = "https://identitysso.nxt.com.betfair/api/login?" + query;
 
-        HttpClient client = HttpClient.newHttpClient();
+        URI uri = new URI(urlString);
+
+
         HttpRequest request = HttpRequest.newBuilder()
-                .POST(bodyPublisher)
+                .uri(uri)
                 .header("X-Application", "npo67wopV4oKVu5g")
                 .header("Content-Type", "application/x-www-form-urlencoded")
                 .header("Accept", "application/json")
-                .uri(URI.create(apiURL))
+                .POST(HttpRequest.BodyPublishers.noBody())
                 .build();
+
+        HttpClient client = HttpClient.newHttpClient();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        //System.out.println(response.body());
+        /* System.out.println(response.body()); */
 
         String responseBody = response.body();
-        String token ="";
+        String sessionToken = "";
 
         if (response.statusCode() == 200) {
             Gson gson = new Gson();
             JsonObject jsonResponse = gson.fromJson(responseBody, JsonObject.class);
 
             if (jsonResponse.has("token")) {
-                token = jsonResponse.get("token").getAsString();
+                sessionToken = jsonResponse.get("token").getAsString();
             }
         }
 
-        return token;
-
-
+        return sessionToken;
 
 
     }
