@@ -46,7 +46,7 @@ public class Login {
 
        if (jsonResponse.has("token")) {
             String sessionToken = jsonResponse.get("token").getAsString();
-            System.out.println("Your login was successful. The token is: " + sessionToken);
+            System.out.println("Your login was successful! The token is: " + sessionToken);
         }
 
 
