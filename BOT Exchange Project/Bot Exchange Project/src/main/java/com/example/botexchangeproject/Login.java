@@ -17,7 +17,7 @@ public class Login {
     private static final String password = "p@ssword03";
 
 
-    public static String returnToken() throws IOException, InterruptedException, URISyntaxException {
+    public static void returnToken() throws IOException, InterruptedException, URISyntaxException {
 
 
         String query = "username=" + username + "&password=" + password;
@@ -38,9 +38,23 @@ public class Login {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        /* System.out.println(response.body()); */
+        //System.out.println(response.body());
 
-        String responseBody = response.body();
+
+        Gson gson = new Gson();
+        JsonObject jsonResponse = gson.fromJson(response.body(), JsonObject.class);
+
+       if (jsonResponse.has("token")) {
+            String sessionToken = jsonResponse.get("token").getAsString();
+            System.out.println("Your login was successful. The token is: " + sessionToken);
+        }
+
+
+
+
+
+
+        /*String responseBody = response.body();
         String sessionToken = "";
 
         if (response.statusCode() == 200) {
@@ -49,15 +63,20 @@ public class Login {
 
             if (jsonResponse.has("token")) {
                 sessionToken = jsonResponse.get("token").getAsString();
-            }
+            }*/
+
         }
 
-        return sessionToken;
+
 
 
     }
 
-}
+
+
+
+
+
 
 
 
