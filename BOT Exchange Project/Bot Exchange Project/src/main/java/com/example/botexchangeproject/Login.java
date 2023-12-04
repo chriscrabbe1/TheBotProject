@@ -9,15 +9,18 @@ import java.net.http.HttpResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import org.springframework.stereotype.Service;
 
 
-
+@Service
 public class Login {
     private static final String username = "apitestuk2";
     private static final String password = "p@ssword03";
 
+    private static String sessionToken;
 
-    public static void returnToken() throws IOException, InterruptedException, URISyntaxException {
+
+    public static String returnToken() throws IOException, InterruptedException, URISyntaxException {
 
 
         String query = "username=" + username + "&password=" + password;
@@ -38,34 +41,32 @@ public class Login {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        //System.out.println(response.body());
+        //return response.body();
+
+        System.out.println(response.body());
+
 
 
         Gson gson = new Gson();
         JsonObject jsonResponse = gson.fromJson(response.body(), JsonObject.class);
 
        if (jsonResponse.has("token")) {
-            String sessionToken = jsonResponse.get("token").getAsString();
+            sessionToken = jsonResponse.get("token").getAsString();
             System.out.println("Your login was successful! The token is: " + sessionToken);
-        }
+
+            return sessionToken;
+
+        } else {
+           throw new IOException("Incorrect Username and/or Password");
+       }
+
+
+    }
 
 
 
 
 
-
-        /*String responseBody = response.body();
-        String sessionToken = "";
-
-        if (response.statusCode() == 200) {
-            Gson gson = new Gson();
-            JsonObject jsonResponse = gson.fromJson(responseBody, JsonObject.class);
-
-            if (jsonResponse.has("token")) {
-                sessionToken = jsonResponse.get("token").getAsString();
-            }*/
-
-        }
 
 
 
