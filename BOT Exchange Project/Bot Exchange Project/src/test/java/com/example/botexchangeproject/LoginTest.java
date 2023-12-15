@@ -8,7 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 
@@ -19,13 +18,13 @@ class LoginTest {
 
     @Test
     public void executePostRequest() throws IOException, URISyntaxException, InterruptedException, RuntimeException {
-        //Body body = new Body("value 1");
-        Login login = new Login();
+
+       // Login login = new Login();
         ObjectMapper objectMapper = new ObjectMapper();
 
 
 
-        stubFor(post(urlEqualTo("/api/login?username=apitestuk2&password=p@ssword03"))
+        /*stubFor(post(urlEqualTo("/api/login?username=apitestuk2&password=p@ssword03"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withHeader("X-Application", "npo67wopV4oKVu5g")

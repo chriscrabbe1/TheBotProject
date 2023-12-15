@@ -15,7 +15,9 @@ public class BotExchangeProjectApplication {
     public static void main(String[] args) throws IOException, InterruptedException, URISyntaxException
     { SpringApplication.run(BotExchangeProjectApplication.class, args);
 
+        UserInput.loginScanner();
         Login.returnToken();
+        //BetPlacement.placeLayBet();
 
 
     }
