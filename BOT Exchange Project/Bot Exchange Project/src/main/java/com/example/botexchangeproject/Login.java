@@ -15,14 +15,10 @@ public class Login {
     private static String password = "P@rola03";
     private static String sessionToken;
 
-    public void provideCredentials(String username, String password) {
+/*    public void provideCredentials(String username, String password) {
         Login.username = username;
         Login.password = password;
-    }
-
-    //public Login(Scanner scanner) {
-        //this.scanner = scanner;
-    //}
+    }*/
 
 
     public static String returnToken() throws IOException, InterruptedException, URISyntaxException {
