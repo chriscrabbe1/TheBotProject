@@ -17,12 +17,11 @@ public class BotExchangeProjectApplication {
     { SpringApplication.run(BotExchangeProjectApplication.class, args);
 
         Scanner scanner = new Scanner(System.in);
-        JsonData betPlacementScanner = new JsonData();
-        UserInput.loginScanner();
-        Login.returnToken();
-        UserInput.userSelection(scanner);
-        //BetPlacement.placeLayBet();
-        BetPlacement.returnEventTypes(betPlacementScanner, scanner);
+        //UserInput.loginScanner();
+        //Login.returnToken();
+        //UserInput.userSelection(scanner);
+        BetPlacement.placeLayBet();
+        JsonBodyBuilder.placeBetsJson();
 
 
     }

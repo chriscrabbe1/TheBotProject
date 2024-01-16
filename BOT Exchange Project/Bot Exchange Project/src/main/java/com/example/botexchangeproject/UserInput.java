@@ -1,7 +1,5 @@
 package com.example.botexchangeproject;
 
-import com.google.gson.JsonObject;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -14,6 +12,8 @@ public class UserInput {
 
 //method to accept correct username and password, then pass it into Login class
     public static Map<String, String> loginScanner() {
+
+
 
         Map<String, String> credentials = new HashMap<>();
         boolean correctCredentials = false;
@@ -30,7 +30,7 @@ public class UserInput {
             System.out.print("Password: ");
             password = scanner.next();
 
-            /* check if username & password correct, then pass them to be returned, else print error message */
+            // check if username & password correct, then pass them to be returned, else print error message
 
             if (Objects.equals(username, "rgssTZlPyFz6Cmnmbl") && Objects.equals(password, "P@rola03")) {
                 credentials.put("username", username);
@@ -42,34 +42,13 @@ public class UserInput {
                 System.out.println("Sorry, wrong credentials, please try again");
             }
 
+            System.out.println();
+
         }
 
         return credentials;
 
     }
 
-    public static void userSelection(Scanner scanner) {
-
-        JsonData betPlacementScanner = new JsonData();
-
-        System.out.print("Please enter event ID: ");
-        betPlacementScanner.setEventTypeIds(scanner.nextLine());
-
-        System.out.print("Thanks, please enter competition ID: ");
-        betPlacementScanner.setCompetitionIds(scanner.nextLine());
-
-        System.out.print("Thanks, please enter ID of Game, Match or Race: ");
-        betPlacementScanner.setEventIds(scanner.nextLine());
-
-        System.out.print("Please enter the market code: ");
-        betPlacementScanner.setMarketTypeCodes(scanner.nextLine());
-
-        System.out.print("Please enter stake: ");
-        betPlacementScanner.setSize(scanner.nextLine());
-
-
-        //scanner.close();
-
-    }
 
 }
