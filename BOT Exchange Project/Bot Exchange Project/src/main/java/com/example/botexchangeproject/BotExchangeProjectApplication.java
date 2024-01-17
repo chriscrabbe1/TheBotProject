@@ -10,6 +10,8 @@ import java.net.URISyntaxException;
 import java.util.Scanner;
 
 
+
+
 @SpringBootApplication
 public class BotExchangeProjectApplication {
 
@@ -17,11 +19,12 @@ public class BotExchangeProjectApplication {
     { SpringApplication.run(BotExchangeProjectApplication.class, args);
 
         Scanner scanner = new Scanner(System.in);
-        //UserInput.loginScanner();
-        //Login.returnToken();
-        //UserInput.userSelection(scanner);
-        BetPlacement.placeLayBet();
-        JsonBodyBuilder.placeBetsJson();
+        Login.returnToken();
+        //BetPlacement.placeLayBet();
+        //JsonBodyBuilder.deleteBetJson();
+        //ListCurrentBets.showLiveBets();
+        DeleteBets.cancelBet();
+
 
 
     }

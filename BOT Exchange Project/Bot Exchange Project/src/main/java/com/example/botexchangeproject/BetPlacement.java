@@ -17,7 +17,7 @@ public class BetPlacement {
 
         String returnedToken = Login.returnToken();
 
-        String jSON2 = JsonBodyBuilder.placeBetsJson();
+        String placeBetsJsonBody = JsonBodyBuilder.placeBetsJson();
 
         String urlPlaceBet = "http://ang.nxt.internal/exchange/betting/rest/v1.0/placeOrders/";
         URI uri = new URI(urlPlaceBet);
@@ -28,7 +28,7 @@ public class BetPlacement {
                 .header("X-Application", "npo67wopV4oKVu5g")
                 .header("X-Authentication", returnedToken)
                 .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(jSON2))
+                .POST(HttpRequest.BodyPublishers.ofString(placeBetsJsonBody))
                 .build();
 
         HttpClient client = HttpClient.newHttpClient();

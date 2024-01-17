@@ -13,11 +13,10 @@ import java.net.http.HttpResponse;
 public class Login {
     private static String username = "rgssTZlPyFz6Cmnmbl";
     private static String password = "P@rola03";
-    private static String sessionToken;
+   private static String sessionToken;
 
 
     public static String returnToken() throws IOException, InterruptedException, URISyntaxException {
-
 
         String query = "username=" + username + "&password=" + password;
         String urlString = "https://identitysso.nxt.com.betfair/api/login?" + query;
@@ -52,7 +51,6 @@ public class Login {
         } else {
            throw new IOException("Incorrect Username and/or Password");
        }
-
 
     }
 
