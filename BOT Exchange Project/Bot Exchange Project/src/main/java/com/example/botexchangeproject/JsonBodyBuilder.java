@@ -31,8 +31,31 @@ public class JsonBodyBuilder {
 
         return jSONObject.toString();
 
+    }
 
+    public static String deleteBetJson() {
+
+        JsonObject cancelJsonObject = new JsonObject();
+        JsonObject deleteInstructionObj = new JsonObject();
+        JsonArray deleteInstructionArray = new JsonArray();
+
+
+        //adds marketID and instructions to the main body of JSON
+        cancelJsonObject.addProperty("marketId", "1.182226323");
+        cancelJsonObject.add("instructions", deleteInstructionArray);
+
+        //inserts betID into "instructions"
+        deleteInstructionObj.addProperty("betId", "309624622026");
+
+        //inserts whole "instructions" into array
+        deleteInstructionArray.add(deleteInstructionObj);
+
+        //System.out.println(jsonObject);
+
+        return cancelJsonObject.toString();
 
     }
+
+
 
 }
