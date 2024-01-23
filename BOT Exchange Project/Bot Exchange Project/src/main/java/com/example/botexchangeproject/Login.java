@@ -15,8 +15,7 @@ public class Login {
     private static String password = "P@rola03";
    private static String sessionToken;
 
-
-    public static String returnToken() throws IOException, InterruptedException, URISyntaxException {
+   public static String returnToken() throws IOException, InterruptedException, URISyntaxException {
 
         String query = "username=" + username + "&password=" + password;
         String urlString = "https://identitysso.nxt.com.betfair/api/login?" + query;

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Betfair</title>
+
+    <style type="text/css">
+        *{
+            text-decoration: none;
+        }
+        .navbar{
+            background: goldenrod; font-family: Verdana; padding-right: 15px; padding-left: 15px;
+        }
+        .navigation{
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        li{
+            list-style: none; display: inline-block; <!-- remove bullet points and arrange headers on single line -->
+        }
+        li a{
+            color: white; font-size: 18px; font-weight: bold; margin-right: 25px;
+            font-style: italic; <!-- font styling and space between options -->
+        }
+        button{
+            background-color: goldenrod; margin-left: 10px; border-radius: 10px; padding: 10px;
+            width: 90px; border-color: burlywood;
+        }
+        button a{
+            color: white; font-weight: bold;
+        }
+        </style>
+
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navigation">
+            <img src="https://s3-eu-west-1.amazonaws.com/tpd/logos/46dd70ea0000640005012793/0x0.png"
+                 alt="Betfair Image" width="200" height="100">
+            <ul>
+                <li><a href="#">Open Bets</a></li>
+                <button><a href="#">Sign In</a></button>
+            </ul>
+        </div>
+    </nav>
+</body>
+</html>
