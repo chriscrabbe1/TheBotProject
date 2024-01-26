@@ -1,35 +1,31 @@
 package com.example.botexchangeproject;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-
+@RestController
+@RequestMapping("/v1.0")
 public class BetPlacement {
-
-    public static void placeLayBet() throws URISyntaxException, IOException, InterruptedException {
+    @Value("{endpoint}")
+    private String endpoint;
+@PostMapping("/placeOrders")
+    public void placeLayBet() throws URISyntaxException, IOException, InterruptedException {
 
         String returnedToken = Login.returnToken();
 
         String placeBetsJsonBody = JsonBodyBuilder.placeBetsJson();
 
-        String urlPlaceBet = "http://ang.nxt.internal/exchange/betting/rest/v1.0/placeOrders/";
-        URI uri = new URI(urlPlaceBet);
+        String urlPlaceBet = endpoint + "placeOrders/";
 
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(uri)
-                .header("Accept", "application/json")
-                .header("X-Application", "npo67wopV4oKVu5g")
-                .header("X-Authentication", returnedToken)
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(placeBetsJsonBody))
-                .build();
+        HttpRequest request = new HttpRequestBuilder().buildRequest(urlPlaceBet, returnedToken, placeBetsJsonBody);
 
         HttpClient client = HttpClient.newHttpClient();
 
@@ -39,8 +35,8 @@ public class BetPlacement {
 
         System.out.println(betResponse.body());
 
-        Gson gson = new Gson();
-        JsonObject response = gson.fromJson(betResponse.body(), JsonObject.class);
+        //Gson gson = new Gson();
+        //JsonObject response = gson.fromJson(betResponse.body(), JsonObject.class);
 
        }
 

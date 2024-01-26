@@ -2,6 +2,10 @@ package com.example.botexchangeproject;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -10,11 +14,13 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 
+@RestController
+@RequestMapping("/api")
 public class Login {
-    private static String username = "rgssTZlPyFz6Cmnmbl";
-    private static String password = "P@rola03";
-   private static String sessionToken;
+    private static final String username = "rgssTZlPyFz6Cmnmbl";
+    private static final String password = "P@rola03";
 
+    @PostMapping("/login?username=rgssTZlPyFz6Cmnmbl&password=P@rola03")
    public static String returnToken() throws IOException, InterruptedException, URISyntaxException {
 
         String query = "username=" + username + "&password=" + password;
@@ -42,7 +48,7 @@ public class Login {
         JsonObject jsonResponse = gson.fromJson(response.body(), JsonObject.class);
 
        if (jsonResponse.has("token")) {
-            sessionToken = jsonResponse.get("token").getAsString();
+           String sessionToken = jsonResponse.get("token").getAsString();
             System.out.println("Your login was successful! The token is: " + sessionToken);
 
             return sessionToken;
