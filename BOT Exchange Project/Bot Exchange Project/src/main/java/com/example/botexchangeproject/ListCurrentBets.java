@@ -1,15 +1,20 @@
 package com.example.botexchangeproject;
 
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-
+@RestController
+@RequestMapping("/exchange/betting/rest/v1.0/")
 public class ListCurrentBets {
 
-
+@PostMapping("/listCurrentOrders/")
     public static String showLiveBets() throws URISyntaxException, IOException, InterruptedException {
 
         String urlCurrentBets = "http://ang.nxt.internal/exchange/betting/rest/v1.0/listCurrentOrders/";

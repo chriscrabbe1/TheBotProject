@@ -39,10 +39,79 @@
             <img src="https://s3-eu-west-1.amazonaws.com/tpd/logos/46dd70ea0000640005012793/0x0.png"
                  alt="Betfair Image" width="200" height="100">
             <ul>
-                <li><a href="#">Open Bets</a></li>
+                <li id="openBetsPath"><a href="/exchange/betting/rest/v1.0/listCurrentOrders/">
+                    Open Bets</a></li>
                 <button><a href="#">Sign In</a></button>
             </ul>
         </div>
     </nav>
+
+        <div id="currentBetsDisplay"></div>
+
+        <script>
+            document.getElementById('openBetsPath').addEventListener('click', function () {
+                fetchData();
+            });
+
+            async function returnSessionToken() {
+                try {
+                    const sessionToken = await userLogin();
+
+                    await fetchData(sessionToken);
+                } catch (error) {
+                    console.error('Error: error');
+                }
+            }
+
+            async function userLogin() {
+                try {
+                   const loginResponse = await fetch('/api/login?username=rgssTZlPyFz6Cmnmbl&password=P@rola03', {
+                       method: 'POST',
+                       headers: {
+                           'Content-Type': 'application/json',
+                           'Accept': 'application/json',
+                           'X-Application': 'npo67wopV4oKVu5g',
+                       }
+                   });
+
+                   if (loginResponse.ok) {
+                       const loginData = await loginResponse.json();
+                       return loginData.sessionToken;
+                       console.log(returnSessionToken());
+                   } else {
+                       console.error('Sorry, Login Failed: ', loginResponse.statusText)
+                       throw new Error('Login Failed');
+                   }
+                } catch (error) {
+                    console. error ('Login error: ', error)
+                    throw error;
+                }
+            }
+
+            async function fetchData() {
+                try {
+                    const response = await fetch('/exchange/betting/rest/v1.0/listCurrentOrders/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-Application': 'npo67wopV4oKVu5g',
+                            'X-Authentication': returnSessionToken(),
+                        }
+                    })
+
+                    if (response.ok) {
+                        const expectedData = await response.text();
+                        document.getElementById('openBetsPath').innerText = expectedData;
+                    } else {
+                        console.error('Error: ', response.statusText);
+                    }
+                } catch (error) {
+                    console.error('Sorry, error encountered: ', error);
+                }
+            }
+        </script>
+
+
 </body>
 </html>
