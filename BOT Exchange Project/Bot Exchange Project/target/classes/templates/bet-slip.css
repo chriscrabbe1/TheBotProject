@@ -1,0 +1,88 @@
+*{
+    text-decoration: none;
+}
+.navbar{
+    background: goldenrod; font-family: Verdana; padding-right: 15px; padding-left: 15px;
+}
+.navigation{
+    display: flex; align-items: center; justify-content: space-between;
+}
+
+.bet-slip {
+    width: 300px;
+    border-radius: 25px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #555555;
+    margin: 15px;
+}
+
+.bet-slip-header {
+    padding: 25px;
+    background: #009578;
+}
+
+.bet-slip-title {
+    margin: 0;
+    text-align: center;
+    font-size: 1.5em; <!-- means 150% font size of the current setting -->
+    font-weight: 400;
+}
+
+.bet-slip-description {
+    padding: 25px;
+}
+
+.bet-slip-description {
+    padding: 0;
+    margin: 0;
+}
+
+.bet-slip-content {
+    list-style: none;
+    margin: 0;
+    padding-left: 25px;
+    position: relative;
+    font-size: 0.9em;
+
+}
+
+.bet-slip-content:not(:last-child) { <!-- concerns all but last feature -->
+    margin-bottom: 0.5em;
+}
+
+.bet-slip-content::before {
+    content: "\26BE";
+    position: absolute;
+    left: 0;
+
+}
+
+.bet-slip-actions {
+    padding: 25px;
+    border-top: 1px solid #eeeeee;
+    display: flex;
+    flex-direction: column;
+}
+
+.bet-slip-cancel-button {
+    display: inline-block;
+    margin: 15px auto;
+    padding: 8px 20px;
+    text-decoration: none;
+    color: #009578;
+    background: #ffffff;
+    border-radius: 5px;
+    border: 1px solid #009578;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-weight: bold;
+}
+
+.bet-slip-cancel-button:hover {
+    background: #009578;
+    color: #ffffff;
+}

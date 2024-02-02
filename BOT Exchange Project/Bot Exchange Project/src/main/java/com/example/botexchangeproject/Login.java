@@ -2,6 +2,7 @@ package com.example.botexchangeproject;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ import java.net.http.HttpResponse;
 @RestController
 @RequestMapping("/api")
 public class Login {
+
     private static final String username = "rgssTZlPyFz6Cmnmbl";
     private static final String password = "P@rola03";
 

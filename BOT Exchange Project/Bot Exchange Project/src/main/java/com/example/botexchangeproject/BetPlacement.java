@@ -14,6 +14,7 @@ import java.net.http.HttpResponse;
 @RestController
 @RequestMapping("/v1.0")
 public class BetPlacement {
+
     @Value("{endpoint}")
     private String endpoint;
 @PostMapping("/placeOrders")
@@ -34,9 +35,6 @@ public class BetPlacement {
         //return response.body();
 
         System.out.println(betResponse.body());
-
-        //Gson gson = new Gson();
-        //JsonObject response = gson.fromJson(betResponse.body(), JsonObject.class);
 
        }
 
