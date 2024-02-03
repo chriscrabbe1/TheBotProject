@@ -145,9 +145,9 @@
         <h1 class="bet-slip-title">Bet Slip</h1>
     </div>
 
-    <div class="bet slip-description">
-        <ul class="bet-slip-list" id="bet-body">
-            <li class="bet-slip-content">placedDate</li>
+    <div class="bet slip-description" id="bet-slip-body">
+        <ul class="bet-slip-list" id="bet-list-body">
+            <li class="bet-slip-content">betDate</li>
             <li class="bet-slip-content">selectionId</li>
             <li class="bet-slip-content">price</li>
             <li class="bet-slip-content">side</li>
@@ -166,30 +166,39 @@
 
 <script>
 
-    let betSlipBody = document.getElementById("bet-body")
+    let betSlipBody = document.getElementById("bet-slip-body")
+    let betlistBody = document.getElementById("bet-list-body")
 
     fetch("/exchange/betting/rest/v1.0/listCurrentOrders/")
-        .then(response => {
-            return response.json();
-        })
+        .then(response => response.json())
         .then(json=>{
-            [json].map(data =>
-                console.log(data.currentOrders[0].betId))
-                betSlipBody.append(data.currentOrders[0].placedDate)
+            [json].forEach(unit=> {
+                unit.currentOrders.forEach(bet => {
+                    let betSlip = betSlipData(
+                        bet.placedDate,
+                        bet.selectionId,
+                        bet.priceSize.price,
+                        bet.side,
+                        bet.priceSize.size
+                    );
+                    betlistBody.appendChild(betSlip);
+                })
+
+                betSlipBody.appendChild(betlistBody);
+            })
         })
 
         .catch(error=>console.log(error));
 
-    function betSlipData(placedDate) {
-        let betSlip = document.createElement('ul');
-        betSlip.innerHTML = `
-        <li class="bet-slip-content">${placedDate}</li>
-        <li class="bet-slip-content">Selection</li>
-        <li class="bet-slip-content">Odds</li>
-        <li class="bet-slip-content">Type of Bet</li>
-        <li class="bet-slip-content">Stake</li>
-    `;
-        return betSlip
+    function betSlipData(betDate, selection, odds, betType, stake) {
+        betlistBody.innerHTML = `
+        <li class="bet-slip-content">Date: ${betDate}</li>
+        <li class="bet-slip-content">Selection: ${selection}</li>
+        <li class="bet-slip-content">Odds: ${odds}</li>
+        <li class="bet-slip-content">Bet Type: ${betType}</li>
+        <li class="bet-slip-content">Stake: ${stake}</li>`;
+
+        return betlistBody;
     }
 
 </script>
