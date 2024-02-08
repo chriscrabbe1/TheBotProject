@@ -1,6 +1,5 @@
 package com.example.botexchangeproject;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,8 +14,6 @@ import java.net.http.HttpResponse;
 @RequestMapping(value = "/exchange/betting/rest/v1.0/", method = {RequestMethod.GET, RequestMethod.POST})
 public class DeleteBets {
 
-
-@Value("{endpoint}")
 private String endpoint;
     @PostMapping("/cancelOrders/")
     public static String cancelBet() throws URISyntaxException, IOException, InterruptedException {

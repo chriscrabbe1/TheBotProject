@@ -32,8 +32,6 @@ public class BetPlacement {
 
         HttpResponse<String> betResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        //return response.body();
-
         System.out.println(betResponse.body());
 
        }

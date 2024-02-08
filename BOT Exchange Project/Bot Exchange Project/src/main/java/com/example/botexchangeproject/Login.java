@@ -2,7 +2,6 @@ package com.example.botexchangeproject;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,10 +40,6 @@ public class Login {
         HttpClient client = HttpClient.newHttpClient();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        //return response.body();
-
-        //System.out.println(response.body());
 
         Gson gson = new Gson();
         JsonObject jsonResponse = gson.fromJson(response.body(), JsonObject.class);

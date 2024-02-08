@@ -2,7 +2,6 @@ package com.example.botexchangeproject;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,9 +16,6 @@ import java.net.http.HttpResponse;
 @RestController
 @RequestMapping(value = "/exchange/betting/rest/v1.0/", method = {RequestMethod.GET, RequestMethod.POST})
 public class ListCurrentBets {
-
-    @Value("{endpoint}")
-    private String endpoint;
 
 @PostMapping("/listCurrentOrders/")
     public static String showLiveBets() throws URISyntaxException, IOException, InterruptedException {
