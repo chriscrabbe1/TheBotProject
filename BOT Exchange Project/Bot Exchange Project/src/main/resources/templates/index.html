@@ -145,7 +145,7 @@
         <h1 class="bet-slip-title">Bet Slip</h1>
     </div>
 
-    <div class="bet slip-description" id="bet-slip-body">
+    <div class="bet-slip-description" id="bet-slip-body">
         <ul class="bet-slip-list" id="bet-list-body">
             <li class="bet-slip-content">betDate</li>
             <li class="bet-slip-content">selectionId</li>
@@ -156,7 +156,7 @@
     </div>
     <div>
         <div class="bet-slip-actions">
-            <a href="./" class="bet-slip-cancel-button">Cancel Bet</a>
+            <a href="#" id="cancel-bet-button" class="bet-slip-cancel-button">Cancel Bet</a>
             <p class="bet-slip-cancel-description">Bets can only be cancelled when unmatched</p>
         </div>
 
@@ -168,6 +168,7 @@
 
     let betSlipBody = document.getElementById("bet-slip-body")
     let betlistBody = document.getElementById("bet-list-body")
+
 
     fetch("/exchange/betting/rest/v1.0/listCurrentOrders/")
         .then(response => response.json())
@@ -181,10 +182,11 @@
                         bet.side,
                         bet.priceSize.size
                     );
+
                     betlistBody.appendChild(betSlip);
+
                 })
 
-                betSlipBody.appendChild(betlistBody);
             })
         })
 
@@ -200,6 +202,34 @@
 
         return betlistBody;
     }
+
+    <!--------------------- cancel bets -------------->
+
+    document.getElementById("cancel-bet-button").addEventListener("click", function (event) {
+        event.preventDefault();
+
+        var raw = JSON.stringify({
+            "marketId": "1.182240017",
+            "instructions": [
+                {
+                    "betId": "309629630932"
+                }
+            ]
+        });
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch("/exchange/betting/rest/v1.0/cancelOrders/", requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+
+    })
 
 </script>
 
