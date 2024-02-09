@@ -27,8 +27,6 @@ public class JsonBodyBuilder {
         filterObjectLimitOrder.addProperty("price", "3");
         filterObjectLimitOrder.addProperty("persistenceType", "LAPSE");
 
-        //System.out.println(filterObject);
-
         return jSONObject.toString();
 
     }

@@ -1,2 +1,8 @@
+com/example/botexchangeproject/ListCurrentBets.class
+com/example/botexchangeproject/DeleteBets.class
+com/example/botexchangeproject/UserInput.class
+com/example/botexchangeproject/BetPlacement.class
 com/example/botexchangeproject/Login.class
 com/example/botexchangeproject/BotExchangeProjectApplication.class
+com/example/botexchangeproject/JsonBodyBuilder.class
+com/example/botexchangeproject/HttpRequestBuilder.class
