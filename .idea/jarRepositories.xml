@@ -2,9 +2,29 @@
 <project version="4">
   <component name="RemoteRepositoriesConfiguration">
     <remote-repository>
+      <option name="id" value="artifactory-releases" />
+      <option name="name" value="PPB Artifactory Releases" />
+      <option name="url" value="https://artifactory-prd.prd.betfair/artifactory/libs-release" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="Central Repository" />
       <option name="url" value="https://repo.maven.apache.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="artifactory-local-releases" />
+      <option name="name" value="PPB Artifactory Local Releases" />
+      <option name="url" value="https://artifactory-prd.prd.betfair/artifactory/libs-release-local" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="artifactory-snapshots" />
+      <option name="name" value="PPB Artifactory Snapshots" />
+      <option name="url" value="https://artifactory-prd.prd.betfair/artifactory/libs-snapshot" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="artifactory-remote-repos" />
+      <option name="name" value="PPB Artifactory Remote Repos" />
+      <option name="url" value="https://artifactory-prd.prd.betfair/artifactory/remote-repos" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="central" />
@@ -15,6 +35,11 @@
       <option name="id" value="jboss.community" />
       <option name="name" value="JBoss Community repository" />
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="nexus-releases" />
+      <option name="name" value="PPB Nexus Prod Releases Repository" />
+      <option name="url" value="https://nexusrel.app.betfair/content/groups/public" />
     </remote-repository>
   </component>
 </project>

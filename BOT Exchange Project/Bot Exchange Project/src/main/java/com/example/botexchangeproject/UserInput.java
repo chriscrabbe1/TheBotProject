@@ -14,7 +14,6 @@ public class UserInput {
     public static Map<String, String> loginScanner() {
 
 
-
         Map<String, String> credentials = new HashMap<>();
         boolean correctCredentials = false;
         Scanner scanner = new Scanner(System.in);
