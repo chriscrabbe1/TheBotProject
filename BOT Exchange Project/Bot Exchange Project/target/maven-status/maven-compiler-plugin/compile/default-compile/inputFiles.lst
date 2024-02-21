@@ -1,8 +1,13 @@
-/Users/christopher.crabbe2/Desktop/TheBotProject/BOT Exchange Project/Bot Exchange Project/src/main/java/com/example/botexchangeproject/UserInput.java
 /Users/christopher.crabbe2/Desktop/TheBotProject/BOT Exchange Project/Bot Exchange Project/src/main/java/com/example/botexchangeproject/Login.java
+/Users/christopher.crabbe2/Desktop/TheBotProject/BOT Exchange Project/Bot Exchange Project/src/main/java/com/example/botexchangeproject/SessionTokenSupplier.java
 /Users/christopher.crabbe2/Desktop/TheBotProject/BOT Exchange Project/Bot Exchange Project/src/main/java/com/example/botexchangeproject/DeleteBets.java
 /Users/christopher.crabbe2/Desktop/TheBotProject/BOT Exchange Project/Bot Exchange Project/src/main/java/com/example/botexchangeproject/HttpRequestBuilder.java
 /Users/christopher.crabbe2/Desktop/TheBotProject/BOT Exchange Project/Bot Exchange Project/src/main/java/com/example/botexchangeproject/BotExchangeProjectApplication.java
 /Users/christopher.crabbe2/Desktop/TheBotProject/BOT Exchange Project/Bot Exchange Project/src/main/java/com/example/botexchangeproject/ListCurrentBets.java
 /Users/christopher.crabbe2/Desktop/TheBotProject/BOT Exchange Project/Bot Exchange Project/src/main/java/com/example/botexchangeproject/BetPlacement.java
 /Users/christopher.crabbe2/Desktop/TheBotProject/BOT Exchange Project/Bot Exchange Project/src/main/java/com/example/botexchangeproject/JsonBodyBuilder.java
+/Users/christopher.crabbe2/Desktop/TheBotProject/BOT Exchange Project/Bot Exchange Project/src/main/java/com/example/botexchangeproject/Controllers/DeleteBetsController.java
+/Users/christopher.crabbe2/Desktop/TheBotProject/BOT Exchange Project/Bot Exchange Project/src/main/java/com/example/botexchangeproject/Controllers/BetPlacementController.java
+/Users/christopher.crabbe2/Desktop/TheBotProject/BOT Exchange Project/Bot Exchange Project/src/main/java/com/example/botexchangeproject/Controllers/LoginController.java
+/Users/christopher.crabbe2/Desktop/TheBotProject/BOT Exchange Project/Bot Exchange Project/src/main/java/com/example/botexchangeproject/Controllers/OpenBetsController.java
+/Users/christopher.crabbe2/Desktop/TheBotProject/BOT Exchange Project/Bot Exchange Project/src/main/java/com/example/botexchangeproject/Models/LoginForm.java

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xml:lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
@@ -96,7 +96,8 @@
 
 <body>
 
-<section class="bet-slip">
+<form th:action="@{/openbets}" method="post" id="OpenBets">
+<section class="bet-slip" >
   <div class="bet-slip-header">
     <h1 class="bet-slip-title">Bet Slip</h1>
   </div>
@@ -119,77 +120,7 @@
   </div>
 
 </section>
-
-
-<script>
-
-  let betSlipBody = document.getElementById("bet-slip-body")
-  let betlistBody = document.getElementById("bet-list-body")
-
-
-  fetch("/exchange/betting/rest/v1.0/listCurrentOrders/")
-  .then(response => response.json())
-  .then(json=>{
-    [json].forEach(unit=> {
-      unit.currentOrders.forEach(bet => {
-        let betSlip = betSlipData(
-            bet.placedDate,
-            bet.selectionId,
-            bet.priceSize.price,
-            bet.side,
-            bet.priceSize.size
-        );
-
-        betlistBody.appendChild(betSlip);
-
-      })
-
-    })
-  })
-
-  .catch(error=>console.log(error));
-
-  function betSlipData(betDate, selection, odds, betType, stake) {
-    betlistBody.innerHTML = `
-        <li class="bet-slip-content">Date: ${betDate}</li>
-        <li class="bet-slip-content">Selection: ${selection}</li>
-        <li class="bet-slip-content">Odds: ${odds}</li>
-        <li class="bet-slip-content">Bet Type: ${betType}</li>
-        <li class="bet-slip-content">Stake: ${stake}</li>`;
-
-    return betlistBody;
-  }
-
-  <!--------------------- cancel bets -------------->
-
-  document.getElementById("cancel-bet-button").addEventListener("click", function (event) {
-    event.preventDefault();
-
-    var raw = JSON.stringify({
-      "marketId": "1.182240017",
-      "instructions": [
-        {
-          "betId": "309629630932"
-        }
-      ]
-    });
-
-    var requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow'
-    };
-
-    fetch("/exchange/betting/rest/v1.0/cancelOrders/", requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
-
-  })
-
-</script>
-
+</form>
 
 </body>
 </html>
