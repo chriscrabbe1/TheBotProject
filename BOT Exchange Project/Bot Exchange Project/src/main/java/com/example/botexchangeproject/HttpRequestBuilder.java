@@ -1,8 +1,15 @@
 package com.example.botexchangeproject;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpRequest;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 public class HttpRequestBuilder {
 
@@ -20,4 +27,28 @@ public class HttpRequestBuilder {
 
         return request;
     }
+
+
+    public ResponseEntity<String> buildARequest(String requestURL, String returnedSessionToken) {
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("X-Application", "npo67wopV4oKVu5g");
+        headers.add("Content-Type", "application/x-www-form-urlencoded");
+        headers.add("Accept", "application/json");
+        headers.add("X-Authentication", returnedSessionToken);
+        HttpEntity<String> finalEntity = new HttpEntity<>(headers);
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> response = restTemplate.exchange(requestURL, HttpMethod.POST, finalEntity,
+            String.class);
+
+        String responseBody = response.getBody();
+        System.out.println(responseBody);
+
+        return response;
+    }
+
+
 }
+
+

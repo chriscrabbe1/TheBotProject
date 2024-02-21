@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xml:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
 
     <title>Betfair</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style type="text/css">
         *{
             text-decoration: none;
@@ -23,107 +26,17 @@
             color: white; font-size: 18px; font-weight: bold; margin-right: 25px;
             font-style: italic; <!-- font styling and space between options -->
         }
-        button{
-            background-color: goldenrod; margin-left: 10px; border-radius: 10px; padding: 10px;
-            width: 90px; border-color: burlywood;
-        }
-        button a{
-            color: white; font-weight: bold;
-        }
 
         {
             text-decoration: none;
         }
-        .navbar{
-            background: goldenrod; font-family: Verdana; padding-right: 15px; padding-left: 15px;
-        }
-        .navigation{
-            display: flex; align-items: center; justify-content: space-between;
-        }
 
-        .bet-slip {
-            width: 300px;
-            border-radius: 25px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-            font-family: 'Lato', sans-serif;
-            font-size: 16px;
-            line-height: 1.5;
-            color: #555555;
-            margin: 15px;
-        }
-
-        .bet-slip-header {
-            padding: 25px;
-            background: #009578;
-        }
-
-        .bet-slip-title {
-            margin: 0;
-            text-align: center;
-            font-size: 1.5em; <!-- means 150% font size of the current setting -->
-            font-weight: 400;
-        }
-
-        .bet-slip-description {
-            padding: 25px;
-        }
-
-        .bet-slip-list {
-            padding: 0;
-            margin: 0;
-        }
-
-        .bet-slip-content {
-            list-style: none;
-            margin: 0;
-            padding-left: 25px;
-            position: relative;
-            font-size: 0.9em;
-
-        }
-
-        .bet-slip-content:not(:last-child) { <!-- concerns all but last feature -->
-            margin-bottom: 0.5em;
-        }
-
-        .bet-slip-content::before {
-            content: "\26BE";
-            position: absolute;
-            left: 0;
-
-        }
-
-        .bet-slip-actions {
-            padding: 25px;
-            border-top: 1px solid #eeeeee;
+        .wrapper {
             display: flex;
-            flex-direction: column;
+            justify-content: center;
         }
 
-        .bet-slip-cancel-button {
-            display: inline-block;
-            margin: 15px auto;
-            padding: 8px 20px;
-            text-decoration: none;
-            color: #009578;
-            background: #ffffff;
-            border-radius: 5px;
-            border: 1px solid #009578;
-            text-transform: uppercase;
-            letter-spacing: 0.02em;
-            font-weight: bold;
-        }
-
-        .bet-slip-cancel-button:hover {
-            background: #009578;
-            color: #ffffff;
-        }
     </style>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
 </head>
 
@@ -132,106 +45,33 @@
     <div class="navigation">
         <img src="https://s3-eu-west-1.amazonaws.com/tpd/logos/46dd70ea0000640005012793/0x0.png"
              alt="Betfair Image" width="200" height="100">
-        <ul>
-            <li id="openBetsPath"><a href="/exchange/betting/rest/v1.0/listCurrentOrders/">
-                Open Bets</a></li>
-            <button><a href="#">Sign In</a></button>
-        </ul>
     </div>
 </nav>
 
-<section class="bet-slip">
-    <div class="bet-slip-header">
-        <h1 class="bet-slip-title">Bet Slip</h1>
+<div class="wrapper">
+    <div class="form-box login">
+        <h2>Sign In</h2>
+        <form th:action="@{/login}" th:object="${loginForm}" method="post" id="loginForm">
+            <div class="input-box">
+               <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
+                <input type="text" name="username" field="*{username}" id="username" required>
+                <label>Username</label>
+            </div>
+            <div class="input-box">
+                <span class="icon"><ion-icon name="lock-closed-outline"></ion-icon></span>
+                <input type="password" name="password" field="*{password}"id="password" required>
+                <label>Password</label>
+            </div>
+            <button type="submit" class="btn">Login</button>
+        </form>
     </div>
 
-    <div class="bet-slip-description" id="bet-slip-body">
-        <ul class="bet-slip-list" id="bet-list-body">
-            <li class="bet-slip-content">betDate</li>
-            <li class="bet-slip-content">selectionId</li>
-            <li class="bet-slip-content">price</li>
-            <li class="bet-slip-content">side</li>
-            <li class="bet-slip-content">size</li>
-        </ul>
-    </div>
-    <div>
-        <div class="bet-slip-actions">
-            <a href="#" id="cancel-bet-button" class="bet-slip-cancel-button">Cancel Bet</a>
-            <p class="bet-slip-cancel-description">Bets can only be cancelled when unmatched</p>
-        </div>
-
-    </div>
-
-</section>
-
-<script>
-
-    let betSlipBody = document.getElementById("bet-slip-body")
-    let betlistBody = document.getElementById("bet-list-body")
-
-
-    fetch("/exchange/betting/rest/v1.0/listCurrentOrders/")
-        .then(response => response.json())
-        .then(json=>{
-            [json].forEach(unit=> {
-                unit.currentOrders.forEach(bet => {
-                    let betSlip = betSlipData(
-                        bet.placedDate,
-                        bet.selectionId,
-                        bet.priceSize.price,
-                        bet.side,
-                        bet.priceSize.size
-                    );
-
-                    betlistBody.appendChild(betSlip);
-
-                })
-
-            })
-        })
-
-        .catch(error=>console.log(error));
-
-    function betSlipData(betDate, selection, odds, betType, stake) {
-        betlistBody.innerHTML = `
-        <li class="bet-slip-content">Date: ${betDate}</li>
-        <li class="bet-slip-content">Selection: ${selection}</li>
-        <li class="bet-slip-content">Odds: ${odds}</li>
-        <li class="bet-slip-content">Bet Type: ${betType}</li>
-        <li class="bet-slip-content">Stake: ${stake}</li>`;
-
-        return betlistBody;
-    }
-
-    <!--------------------- cancel bets -------------->
-
-    document.getElementById("cancel-bet-button").addEventListener("click", function (event) {
-        event.preventDefault();
-
-        var raw = JSON.stringify({
-            "marketId": "1.182240017",
-            "instructions": [
-                {
-                    "betId": "309629630932"
-                }
-            ]
-        });
-
-        var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
-
-        fetch("/exchange/betting/rest/v1.0/cancelOrders/", requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
-
-    })
-
-</script>
+</div>
 
 </body>
+
+<!-- username and password icons -->
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
 </html>

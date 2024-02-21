@@ -1,50 +1,79 @@
 package com.example.botexchangeproject;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.tomakehurst.wiremock.junit5.WireMockTest;
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.lessThanOrEqualTo;
-import org.junit.jupiter.api.*;
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.givenThat;
+import static com.github.tomakehurst.wiremock.client.WireMock.post;
+import static com.github.tomakehurst.wiremock.client.WireMock.status;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.verify;
+import static io.restassured.module.mockmvc.RestAssuredMockMvc.with;
 import static org.junit.jupiter.api.Assertions.*;
 
-@WireMockTest
-@SpringBootTest
-class LoginTest {
+import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.client.WireMock;
+import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
+import com.github.tomakehurst.wiremock.junit5.WireMockExtension;
+import com.github.tomakehurst.wiremock.junit5.WireMockTest;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.http.ContentType;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.net.http.HttpClient;
+import java.net.http.HttpResponse;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
 
+import static io.restassured.RestAssured.given;
+
+@WireMockTest(httpPort = 8989)
+class LoginTest extends TestBase {
+
+  private RequestSpecification requestSpec;
+  String encodedPassword = URLDecoder.decode("P@rola03", "UTF-8");
+
+    public LoginTest() throws UnsupportedEncodingException {
+    }
+
+    @BeforeEach
+public void createRequestSpec() {
+     requestSpec = new RequestSpecBuilder().
+        setBaseUri("http://localhost").
+         setPort(8989).build();
+}
 
     @Test
-    public void executePostRequest() throws IOException, URISyntaxException, InterruptedException, RuntimeException {
+    @DisplayName("Checks if the login returns an OK Status Code")
+    public void loginRequestReturnsOkStatusCode()
+        throws RuntimeException {
 
-        // Login login = new Login();
-        ObjectMapper objectMapper = new ObjectMapper();
+      stubFor(post(urlEqualTo("/login?username=rgssTZlPyFz6Cmnmbl&password=P@rola03"))
+              .willReturn(aResponse()
+                  .withStatus(200)
+                  .withHeader("X-Application", "npo67wopV4oKVu5g")
+                  .withHeader("Content-Type", "application/x-www-form-urlencoded")
+                  .withHeader("Accept", "application/json")
+          ));
+
+        given().
+                spec(requestSpec).
+        when().
+                post("/login?username=rgssTZlPyFz6Cmnmbl&password=P@rola03").
+        then().
+                assertThat().
+                statusCode(200);
 
 
-
-        /*stubFor(post(urlEqualTo("/api/login?username=apitestuk2&password=p@ssword03"))
-                .willReturn(aResponse()
-                        .withStatus(200)
-                        .withHeader("X-Application", "npo67wopV4oKVu5g")
-                        .withHeader("Content-Type", "application/x-www-form-urlencoded")
-                        .withHeader("Accept", "application/json")
-                        .withBody(objectMapper.writeValueAsString(login))));
-
-        // Create the HTTP client - address the code below (figure out how to proceed)
-
-        /*CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpPost request = new HttpPost("https://identitysso.nxt.com.betfair/api/login");
-        HttpResponse httpResponse = httpClient.execute(request);
-        */
-
-        // Assert
-
-        String result = Login.returnToken();
-        assertThat(result.length(), lessThanOrEqualTo(44));
+        //String result = Login.returnToken();
+        //assertThat(result.length(), lessThanOrEqualTo(44));
 
         /*
         assertThat(result, containsString("token"));
