@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xml:lang="en">
+<html xml:th="http://www.thymeleaf.org">
+<!--- <html xml:lang="en"> -->
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
@@ -96,6 +97,7 @@
 
 <body>
 
+<!--<tr th:each="openBets : ${currentOrders}">-->
 <form th:action="@{/openbets}" method="post" id="OpenBets">
 <section class="bet-slip" >
   <div class="bet-slip-header">
@@ -113,7 +115,7 @@
   </div>
   <div>
     <div class="bet-slip-actions">
-      <a href="#" id="cancel-bet-button" class="bet-slip-cancel-button">Cancel Bet</a>
+      <a href="@{/deleteBets}" id="cancel-bet-button" class="bet-slip-cancel-button">Cancel Bet</a>
       <p class="bet-slip-cancel-description">Bets can only be cancelled when unmatched</p>
     </div>
 
@@ -121,6 +123,7 @@
 
 </section>
 </form>
+<!--</tr>-->
 
 </body>
 </html>

@@ -42,8 +42,8 @@ public class HttpRequestBuilder {
         ResponseEntity<String> response = restTemplate.exchange(requestURL, HttpMethod.POST, finalEntity,
             String.class);
 
-        String responseBody = response.getBody();
-        System.out.println(responseBody);
+//        String responseBody = response.getBody();
+//        System.out.println(responseBody);
 
         return response;
     }

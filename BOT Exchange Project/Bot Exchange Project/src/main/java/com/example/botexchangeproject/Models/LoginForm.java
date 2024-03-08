@@ -21,8 +21,8 @@ public class LoginForm {
     this.password = password;
   }
 
-  private String username;
-  private String password;
+  protected String username;
+  protected String password;
 
   public String getSessionToken() {
     return sessionToken;
@@ -32,7 +32,7 @@ public class LoginForm {
     this.sessionToken = sessionToken;
   }
 
-  private String sessionToken;
+  protected String sessionToken;
 
 
 
