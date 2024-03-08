@@ -5,6 +5,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import com.example.botexchangeproject.HttpRequestBuilder;
 import com.example.botexchangeproject.JsonBodyBuilder;
+import com.example.botexchangeproject.Models.CurrentOrder;
 import com.example.botexchangeproject.Models.CurrentOrders;
 import com.example.botexchangeproject.Models.LoginForm;
 import com.google.gson.Gson;
@@ -22,7 +23,6 @@ import org.springframework.web.client.RestTemplate;
 
 @Controller
 public class ServiceController {
-
   public static String passedToken;
 
 //SHOW LOGIN PAGE
@@ -68,7 +68,7 @@ public class ServiceController {
 
   //SHOW OPEN BETS
 @RequestMapping(value = "openBets", method = {RequestMethod.GET, RequestMethod.POST})
-  public String showCurrentBets(Model model) {
+  public String showCurrentBets(Model model, CurrentOrder currentOrder) {
 
   String urlOpenBets = "http://ang.nxt.internal/exchange/betting/rest/v1.0/listCurrentOrders/";
 
@@ -80,29 +80,14 @@ public class ServiceController {
 
   System.out.println(currentBetsString);
 
-//  model.addAttribute("currentOrders", response);
-
   Gson gson = new Gson();
 
   CurrentOrders currentOrders = gson.fromJson(currentBetsString, CurrentOrders.class);
 
-//  JsonObject jsonResponse = gson.fromJson(currentBetsString, Bet.class);
-//
-//  model.addAttribute("currentOrders", response);
+  model.addAttribute("orders", currentOrders);
+
 
   System.out.println(response + "+++++");
-
-
-
-//  JsonArray jsonArray = new Gson().fromJson(response, JsonArray.class);
-//
-//  for (Object betId:
-//  jsonArray) {
-//    System.out.println(betId);
-//  }
-
-//  String[] jsonResponseArray = response.split("\n");
-//  System.out.println(jsonResponseArray);
 
   return "CurrentBets";
   }
@@ -127,10 +112,6 @@ public class ServiceController {
 
     String responseBody = response.getBody();
     System.out.println(responseBody);
-
-
-
-
 
     return null;
   }

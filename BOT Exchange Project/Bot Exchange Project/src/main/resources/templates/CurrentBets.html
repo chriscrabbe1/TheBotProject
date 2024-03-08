@@ -90,15 +90,21 @@
       color: #ffffff;
     }
 
+    .bet-slip-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
   </style>
 
 </head>
 
 
 <body>
-
-<!--<tr th:each="openBets : ${currentOrders}">-->
-<form th:action="@{/openbets}" method="post" id="OpenBets">
+<div class="bet-slip-container">
+<tr th:each="openBets : ${orders.currentOrders}">
+<form th:action="@{/openBets}" method="post" id="OpenBets">
 <section class="bet-slip" >
   <div class="bet-slip-header">
     <h1 class="bet-slip-title">Bet Slip</h1>
@@ -106,11 +112,12 @@
 
   <div class="bet-slip-description" id="bet-slip-body">
     <ul class="bet-slip-list" id="bet-list-body">
-      <li class="bet-slip-content">betDate</li>
-      <li class="bet-slip-content">selectionId</li>
-      <li class="bet-slip-content">price</li>
-      <li class="bet-slip-content">side</li>
-      <li class="bet-slip-content">size</li>
+      <li class="bet-slip-content" th:text="${openBets.getBetId()}">betId</li>
+      <li class="bet-slip-content" th:text="${openBets.getPlacedDate()}">betDate</li>
+      <li class="bet-slip-content" th:text="${openBets.getSelectionId()}">selectionId</li>
+      <li class="bet-slip-content" th:text="${openBets.getPriceSize().getPrice()}">price</li>
+      <li class="bet-slip-content" th:text="${openBets.getPriceSize().getSize()}">side</li>
+      <li class="bet-slip-content" th:text="${openBets.getSide()}">size</li>
     </ul>
   </div>
   <div>
@@ -123,7 +130,8 @@
 
 </section>
 </form>
-<!--</tr>-->
+</tr>
+</div>
 
 </body>
 </html>
