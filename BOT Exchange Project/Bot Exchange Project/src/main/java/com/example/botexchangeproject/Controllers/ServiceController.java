@@ -5,6 +5,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import com.example.botexchangeproject.HttpRequestBuilder;
 import com.example.botexchangeproject.JsonBodyBuilder;
+import com.example.botexchangeproject.Models.CurrentOrders;
 import com.example.botexchangeproject.Models.LoginForm;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -26,10 +27,7 @@ public class ServiceController {
 
 //SHOW LOGIN PAGE
   @RequestMapping(value = "/login", method = GET)
-  public String showLoginForm(Model model, LoginForm loginForm) {
-    model.addAttribute("loginForm", new LoginForm());
-    model.addAttribute("username", loginForm.getUsername());
-    model.addAttribute("password", loginForm.getPassword());
+  public String showLoginForm() {
     return "index";
   }
 
@@ -76,12 +74,19 @@ public class ServiceController {
 
   HttpRequestBuilder httpRequestBuilder = new HttpRequestBuilder();
 
-      Object response = httpRequestBuilder.buildARequest(urlOpenBets, passedToken);
+  ResponseEntity response = httpRequestBuilder.buildARequest(urlOpenBets, passedToken);
 
-  model.addAttribute("currentOrders", response);
+  String currentBetsString = (String) response.getBody();
 
-//  Gson gson = new Gson();
-//  JsonObject jsonResponse = gson.fromJson(response.toString(), JsonObject.class);
+  System.out.println(currentBetsString);
+
+//  model.addAttribute("currentOrders", response);
+
+  Gson gson = new Gson();
+
+  CurrentOrders currentOrders = gson.fromJson(currentBetsString, CurrentOrders.class);
+
+//  JsonObject jsonResponse = gson.fromJson(currentBetsString, Bet.class);
 //
 //  model.addAttribute("currentOrders", response);
 
