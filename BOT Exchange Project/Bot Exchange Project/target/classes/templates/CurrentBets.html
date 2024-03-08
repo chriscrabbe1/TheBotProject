@@ -118,11 +118,13 @@
       <li class="bet-slip-content" th:text="${openBets.getPriceSize().getPrice()}">price</li>
       <li class="bet-slip-content" th:text="${openBets.getPriceSize().getSize()}">side</li>
       <li class="bet-slip-content" th:text="${openBets.getSide()}">size</li>
+      <li class="bet-slip-content" th:text="${openBets.getMarketId()}">size</li>
     </ul>
   </div>
   <div>
     <div class="bet-slip-actions">
-      <a href="@{/deleteBets}" id="cancel-bet-button" class="bet-slip-cancel-button">Cancel Bet</a>
+      <a th:href="@{/deleteBets(betId=${openBets.getBetId()}, marketId=${openBets.getMarketId()})}"
+         id="cancel-bet-button" class="bet-slip-cancel-button">Cancel Bet</a>
       <p class="bet-slip-cancel-description">Bets can only be cancelled when unmatched</p>
     </div>
 

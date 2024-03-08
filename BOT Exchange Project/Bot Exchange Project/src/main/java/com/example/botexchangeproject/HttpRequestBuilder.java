@@ -33,7 +33,7 @@ public class HttpRequestBuilder {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("X-Application", "npo67wopV4oKVu5g");
-        headers.add("Content-Type", "application/x-www-form-urlencoded");
+        headers.add("Content-Type", "application/json");
         headers.add("Accept", "application/json");
         headers.add("X-Authentication", returnedSessionToken);
         HttpEntity<String> finalEntity = new HttpEntity<>(headers);

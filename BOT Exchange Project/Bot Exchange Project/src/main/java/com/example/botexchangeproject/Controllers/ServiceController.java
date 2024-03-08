@@ -4,11 +4,11 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import com.example.botexchangeproject.HttpRequestBuilder;
-import com.example.botexchangeproject.JsonBodyBuilder;
 import com.example.botexchangeproject.Models.CurrentOrder;
 import com.example.botexchangeproject.Models.CurrentOrders;
 import com.example.botexchangeproject.Models.LoginForm;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -86,7 +86,6 @@ public class ServiceController {
 
   model.addAttribute("orders", currentOrders);
 
-
   System.out.println(response + "+++++");
 
   return "CurrentBets";
@@ -94,17 +93,17 @@ public class ServiceController {
 
   //DELETE BETS
   @RequestMapping(value = "/deleteBets")
-  public String deleteBets() {
+  public String deleteBets(@RequestParam String betId, @RequestParam String marketId) {
         String urlOpenBets = "http://ang.nxt.internal/exchange/betting/rest/v1.0/cancelOrders/";
 
-    String requestBody = JsonBodyBuilder.deleteBetJson();
+    String finalBody = deleteBetsJson(betId, marketId);
 
     HttpHeaders headers = new HttpHeaders();
     headers.add("X-Application", "npo67wopV4oKVu5g");
-    headers.add("Content-Type", "application/x-www-form-urlencoded");
+    headers.add("Content-Type", "application/json");
     headers.add("Accept", "application/json");
     headers.add("X-Authentication", passedToken);
-    HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
+    HttpEntity<String> entity = new HttpEntity<>(finalBody, headers);
 
     RestTemplate restTemplate = new RestTemplate();
     ResponseEntity<String> response = restTemplate.exchange(urlOpenBets, HttpMethod.POST, entity,
@@ -113,7 +112,26 @@ public class ServiceController {
     String responseBody = response.getBody();
     System.out.println(responseBody);
 
-    return null;
+    return "redirect:/openBets";
+  }
+
+  private static String deleteBetsJson(String betId, String marketId) {
+    JsonObject cancelJsonObject = new JsonObject();
+    JsonObject deleteInstructionObj = new JsonObject();
+    JsonArray deleteInstructionArray = new JsonArray();
+
+    //adds marketID and instructions to the main body of JSON
+    cancelJsonObject.addProperty("marketId", marketId);
+    cancelJsonObject.add("instructions", deleteInstructionArray);
+
+    //inserts betID into "instructions"
+    deleteInstructionObj.addProperty("betId", betId);
+
+    //inserts whole "instructions" into array
+    deleteInstructionArray.add(deleteInstructionObj);
+
+    String finalBody = cancelJsonObject.toString();
+    return finalBody;
   }
 
 }
