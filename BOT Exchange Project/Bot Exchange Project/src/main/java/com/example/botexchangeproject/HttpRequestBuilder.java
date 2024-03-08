@@ -33,7 +33,7 @@ public class HttpRequestBuilder {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("X-Application", "npo67wopV4oKVu5g");
-        headers.add("Content-Type", "application/x-www-form-urlencoded");
+        headers.add("Content-Type", "application/json");
         headers.add("Accept", "application/json");
         headers.add("X-Authentication", returnedSessionToken);
         HttpEntity<String> finalEntity = new HttpEntity<>(headers);
@@ -42,8 +42,8 @@ public class HttpRequestBuilder {
         ResponseEntity<String> response = restTemplate.exchange(requestURL, HttpMethod.POST, finalEntity,
             String.class);
 
-        String responseBody = response.getBody();
-        System.out.println(responseBody);
+//        String responseBody = response.getBody();
+//        System.out.println(responseBody);
 
         return response;
     }
