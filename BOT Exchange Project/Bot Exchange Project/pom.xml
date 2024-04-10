@@ -59,8 +59,7 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.16.0</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+      </dependency>
 
         <dependency>
             <groupId>org.hamcrest</groupId>
@@ -93,15 +92,11 @@
                 <configuration>
                     <imageName>demo:1.0</imageName>
                 </configuration>
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <goals>-->
-<!--                            <goal>build-image-no-fork</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
+
             </plugin>
         </plugins>
     </build>
+
+
 
 </project>
