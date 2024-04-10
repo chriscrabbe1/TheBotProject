@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <title>Betfair</title>
 
+  <link rel="stylesheet" href=
+      "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
   <style type="text/css">
     *{
       text-decoration: none;
@@ -25,6 +28,47 @@
     {
       text-decoration: none;
     }
+
+    .menu{
+      width: 100%;
+      margin-top: 30px;
+    }
+    .menu .item{
+      position: relative;
+      cursor: pointer;
+    }
+
+    .menu .item a {
+      color: black;
+      font-size: 16px;
+      text-decoration: none;
+      display: block;
+      padding: 5px 30px;
+      line-height: 30px;
+    }
+    .item i {
+      margin-right: 15px;
+    }
+    .item a .dropdown{
+      position: relative;
+      right: 0;
+      margin: 20px;
+      transition: 0.3s ease;
+    }
+    .item .sub-menu{
+      background: goldenrod;
+      display: none;
+    }
+    .side-bar{
+      background: goldenrod;
+      width: 180px;
+      height: 100vh;
+      position: fixed;
+      overflow-y: auto;
+      transition: 0.6s ease;
+      transition-property: left;
+    }
+
     </style>
 
 </head>
@@ -41,6 +85,54 @@
     </ul>
   </div>
 </nav>
+
+<div class="side-bar">
+<!---menu bar-->
+<div class="menu">
+  <div class="item"><a href="">Soccer
+    <!--- SUB MENU -->
+    <!--- drop down arrow -->
+    <i class="fa fa-angle-right dropdown"></i>
+  </a>
+    <div class="sub-menu">
+      <a href="" class="sub-item">SP1</a>
+      <a href="" class="sub-item">SP1</a>
+      <a href="" class="sub-item">SP1</a>
+      <a href="" class="sub-item">SP1</a>
+    </div>
+  </div>
+  <div class="item"><a href="">Basketball
+    <!--- SUB MENU -->
+    <!--- drop down arrow -->
+    <i class="fa fa-angle-right dropdown"></i>
+  </a>
+    <div class="sub-menu">
+      <a href="" class="sub-item">SP1</a>
+      <a href="" class="sub-item">SP1</a>
+      <a href="" class="sub-item">SP1</a>
+      <a href="" class="sub-item">SP1</a>
+    </div>
+  </div>
+  <div class="item"><a href="">Tennis
+    <!--- SUB MENU -->
+    <!--- drop down arrow -->
+    <i class="fa fa-angle-right dropdown"></i>
+  </a>
+    <div class="sub-menu">
+      <a href="" class="sub-item">SP1</a>
+      <a href="" class="sub-item">SP1</a>
+      <a href="" class="sub-item">SP1</a>
+      <a href="" class="sub-item">SP1</a>
+    </div>
+  </div>
+  <!-- <div class="item"><a href="">Ice Hockey</a></div>
+  <div class="item"><a href="">Rugby League</a></div>
+  <div class="item"><a href="">Rugby Union</a></div>
+  <div class="item"><a href="">Horse Racing</a></div>
+  <div class="item"><a href="">Australian Rules</a></div>
+  <div class="item"><a href="">Handball</a></div> -->
+</div>
+</div>
 
 </body>
 

@@ -1,3 +1,4 @@
-com/example/botexchangeproject/TestBase.class
 com/example/botexchangeproject/BotExchangeProjectApplicationTests.class
-com/example/botexchangeproject/LoginTest.class
+com/example/botexchangeproject/LoginIntegrationTest.class
+com/example/botexchangeproject/LoginUnitTests.class
+com/example/botexchangeproject/TestBase.class
