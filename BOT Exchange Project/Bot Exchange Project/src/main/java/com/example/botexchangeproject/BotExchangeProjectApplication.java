@@ -1,9 +1,6 @@
 package com.example.botexchangeproject;
 
 
-import com.example.botexchangeproject.Controllers.LoginController;
-import com.example.botexchangeproject.Controllers.OpenBetsController;
-import com.example.botexchangeproject.Models.LoginForm;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
