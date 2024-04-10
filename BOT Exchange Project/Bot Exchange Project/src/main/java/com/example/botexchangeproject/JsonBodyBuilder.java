@@ -7,30 +7,30 @@ import com.google.gson.JsonObject;
 
 public class JsonBodyBuilder extends CurrentOrders {
 
-    public static String placeBetsJson() throws JsonIOException {
-        JsonObject jSONObject = new JsonObject();
-        JsonArray instructionsArray = new JsonArray();
-        JsonObject instructionsObject = new JsonObject();
-        JsonObject filterObjectLimitOrder = new JsonObject();
+   // public static String placeBetsJson() throws JsonIOException {
+//        JsonObject jSONObject = new JsonObject();
+//        JsonArray instructionsArray = new JsonArray();
+//        JsonObject instructionsObject = new JsonObject();
+//        JsonObject filterObjectLimitOrder = new JsonObject();
+//
+//        jSONObject.addProperty("marketId", "1.182224857");
+//        jSONObject.add("instructions", instructionsArray);
+//
+//        instructionsObject.addProperty("selectionId", "4708352");
+//        instructionsObject.addProperty("handicap", "0.5");
+//        instructionsObject.addProperty("side", "LAY");
+//        instructionsObject.addProperty("orderType", "LIMIT");
+//        instructionsObject.add("limitOrder", filterObjectLimitOrder);
+//
+//        instructionsArray.add(instructionsObject);
+//
+//        filterObjectLimitOrder.addProperty("size", "0.50");
+//        filterObjectLimitOrder.addProperty("price", "3");
+//        filterObjectLimitOrder.addProperty("persistenceType", "LAPSE");
+//
+//        return jSONObject.toString();
 
-        jSONObject.addProperty("marketId", "1.182224857");
-        jSONObject.add("instructions", instructionsArray);
-
-        instructionsObject.addProperty("selectionId", "4708352");
-        instructionsObject.addProperty("handicap", "0.5");
-        instructionsObject.addProperty("side", "LAY");
-        instructionsObject.addProperty("orderType", "LIMIT");
-        instructionsObject.add("limitOrder", filterObjectLimitOrder);
-
-        instructionsArray.add(instructionsObject);
-
-        filterObjectLimitOrder.addProperty("size", "0.50");
-        filterObjectLimitOrder.addProperty("price", "3");
-        filterObjectLimitOrder.addProperty("persistenceType", "LAPSE");
-
-        return jSONObject.toString();
-
-    }
+    //}
 
 //    public static String deleteBetJson() {
 //

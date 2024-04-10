@@ -4,7 +4,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import com.example.botexchangeproject.HttpRequestBuilder;
-import com.example.botexchangeproject.Models.CurrentOrder;
 import com.example.botexchangeproject.Models.CurrentOrders;
 import com.example.botexchangeproject.Models.LoginForm;
 import com.google.gson.Gson;
@@ -68,7 +67,7 @@ public class ServiceController {
 
   //SHOW OPEN BETS
 @RequestMapping(value = "openBets", method = {RequestMethod.GET, RequestMethod.POST})
-  public String showCurrentBets(Model model, CurrentOrder currentOrder) {
+  public String showCurrentBets(Model model) {
 
   String urlOpenBets = "http://ang.nxt.internal/exchange/betting/rest/v1.0/listCurrentOrders/";
 
@@ -93,17 +92,19 @@ public class ServiceController {
 
   //DELETE BETS
   @RequestMapping(value = "/deleteBets")
-  public String deleteBets(@RequestParam String betId, @RequestParam String marketId) {
-        String urlOpenBets = "http://ang.nxt.internal/exchange/betting/rest/v1.0/cancelOrders/";
+  public String deleteBets(@RequestParam String betId,
+      @RequestParam String marketId) {
 
-    String finalBody = deleteBetsJson(betId, marketId);
+    String urlOpenBets = "http://ang.nxt.internal/exchange/betting/rest/v1.0/cancelOrders/";
+
+    String passedDeleteBetsJson = deleteBetsJson(betId, marketId);
 
     HttpHeaders headers = new HttpHeaders();
     headers.add("X-Application", "npo67wopV4oKVu5g");
     headers.add("Content-Type", "application/json");
     headers.add("Accept", "application/json");
     headers.add("X-Authentication", passedToken);
-    HttpEntity<String> entity = new HttpEntity<>(finalBody, headers);
+    HttpEntity<String> entity = new HttpEntity<>(passedDeleteBetsJson, headers);
 
     RestTemplate restTemplate = new RestTemplate();
     ResponseEntity<String> response = restTemplate.exchange(urlOpenBets, HttpMethod.POST, entity,
@@ -115,6 +116,36 @@ public class ServiceController {
     return "redirect:/openBets";
   }
 
+  //PLACE BETS
+  @RequestMapping(value = "/placeBet")
+  public String placeBets(@RequestParam String marketId,
+      @RequestParam String selectionId,
+      @RequestParam String size) {
+
+    String urlPlaceBets = "http://ang.nxt.internal/exchange/betting/rest/v1.0/placeOrders/";
+
+    String passedPlaceBetsJson = placeBetsJson(marketId, selectionId, size);
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.add("X-Application", "npo67wopV4oKVu5g");
+    headers.add("Content-Type", "application/json");
+    headers.add("Accept", "application/json");
+    headers.add("X-Authentication", passedToken);
+    HttpEntity<String> entity = new HttpEntity<>(passedPlaceBetsJson, headers);
+
+    RestTemplate restTemplate = new RestTemplate();
+    ResponseEntity<String> response = restTemplate.exchange(urlPlaceBets, HttpMethod.POST, entity,
+        String.class);
+
+    String responseBody = response.getBody();
+    System.out.println(responseBody);
+
+    return "redirect:/openBets";
+
+  }
+
+
+//DELETE BETS JSON
   private static String deleteBetsJson(String betId, String marketId) {
     JsonObject cancelJsonObject = new JsonObject();
     JsonObject deleteInstructionObj = new JsonObject();
@@ -132,6 +163,33 @@ public class ServiceController {
 
     String finalBody = cancelJsonObject.toString();
     return finalBody;
+  }
+
+  //PLACE BETS JSON
+
+  private static String placeBetsJson(String marketId, String selectionId, String size) {
+    JsonObject placeJsonObject = new JsonObject();
+    JsonArray instructionsArray = new JsonArray();
+    JsonObject instructionsObject = new JsonObject();
+    JsonObject filterObjectLimitOrder = new JsonObject();
+
+    placeJsonObject.addProperty("marketId", marketId);
+    placeJsonObject.add("instructions", instructionsArray);
+
+    instructionsObject.addProperty("selectionId", selectionId);
+    instructionsObject.addProperty("handicap", "0.5");
+    instructionsObject.addProperty("side", "LAY");
+    instructionsObject.addProperty("orderType", "LIMIT");
+    instructionsObject.add("limitOrder", filterObjectLimitOrder);
+
+    instructionsArray.add(instructionsObject);
+
+    filterObjectLimitOrder.addProperty("size", size);
+    filterObjectLimitOrder.addProperty("price", "3");
+    filterObjectLimitOrder.addProperty("persistenceType", "LAPSE");
+
+    String finalPlaceBetsBody = placeJsonObject.toString();
+    return finalPlaceBetsBody;
   }
 
 }
